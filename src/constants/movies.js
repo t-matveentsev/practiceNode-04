@@ -1,1 +1,3 @@
-export const typeList = ["film", "serial", "cartoon"];
+export const typeList = ["movie", "series", "cartoon"];
+
+export const minReleaseYear = 1895;

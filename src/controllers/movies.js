@@ -7,9 +7,16 @@ import {
   updateMovie,
   deleteMovieById,
 } from "../services/movies.js";
+import { parsePaginationParams } from "../utils/parsePaginationParams.js";
+import { parseSortParams } from "../utils/parseSortParams.js";
+import { movieSortFields } from "../db/models/Movie.js";
+import { parsMovieFilterParams } from "../utils/filters/parseMovieFilterParams.js";
 
 export const getMoviesController = async (req, res) => {
-  const data = await getMovies();
+  const paginationParams = parsePaginationParams(req.query);
+  const sortParams = parseSortParams(req.query, movieSortFields);
+  const filters = parsMovieFilterParams(req.query);
+  const data = await getMovies({ ...paginationParams, ...sortParams, filters });
   res.json({
     status: 200,
     message: "Successfully find movies",

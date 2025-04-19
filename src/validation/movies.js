@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { typeList } from "../constants/movies.js";
+import { minReleaseYear, typeList } from "../constants/movies.js";
 
 export const movieAddSchema = Joi.object({
   title: Joi.string().required().messages({
@@ -9,6 +9,7 @@ export const movieAddSchema = Joi.object({
   director: Joi.string().required(),
   favorite: Joi.boolean(),
   type: Joi.string().valid(...typeList),
+  releaseYear: Joi.number().min(minReleaseYear).required(),
 });
 
 export const movieUpdateSchema = Joi.object({
@@ -16,4 +17,5 @@ export const movieUpdateSchema = Joi.object({
   director: Joi.string(),
   favorite: Joi.boolean(),
   type: Joi.string().valid(...typeList),
+  releaseYear: Joi.number().min(minReleaseYear),
 });
